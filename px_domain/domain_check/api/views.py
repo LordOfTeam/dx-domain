@@ -49,7 +49,7 @@ class DomainCheckView(APIView):
                     "ipv4": get_ip46_address(ipv4),
                     "ipv6": get_ip46_address(ipv6),
                     "localdns": dns_resolver.nameservers[0],
-                    "pinginfo": sum(times) / count if times else "域名PING超时",
+                    "pinginfo": round((sum(times) / count) * 1000) if times else "域名PING超时",
                     "checktime": cur_date,
                     "mediacdn": cdn_str
                 }

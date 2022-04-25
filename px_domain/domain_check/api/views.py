@@ -22,7 +22,8 @@ class DomainCheckView(APIView):
         ipv6 = "http://ipv6.testipv6.cn/ip/?callback="
         cdn_url = "https://cdn.poizon.com/node-common/2aa395c3c2257c5010d0c17569f794af.png"
         status = HTTP_200_OK
-        
+        cur_date = datetime.datetime.now().replace(microsecond=0).isoformat().replace("T", " ")
+
         try:
             dns_resolver = dns.resolver.Resolver()
             # 获取cdn
@@ -49,7 +50,7 @@ class DomainCheckView(APIView):
                     "ipv6": get_ip46_address(ipv6),
                     "localdns": dns_resolver.nameservers[0],
                     "pinginfo": sum(times) / count if times else "域名PING超时",
-                    "checktime": datetime.datetime.utcnow().isoformat(),
+                    "checktime": cur_date,
                     "mediacdn": cdn_str
                 }
             }
@@ -64,7 +65,7 @@ class DomainCheckView(APIView):
                     "ipv6": "",
                     "localdns": "",
                     "pinginfo": "",
-                    "checktime": datetime.datetime.utcnow().isoformat(),
+                    "checktime": cur_date,
                     "mediacdn": ""
                 }
             }

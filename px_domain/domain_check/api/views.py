@@ -7,7 +7,6 @@ from ping3 import ping
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
 from rest_framework.views import APIView, Response
 
-
 def get_ip46_address(address):
     req = requests.get(address).text
     data = literal_eval(req)

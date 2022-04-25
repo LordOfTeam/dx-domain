@@ -18,7 +18,7 @@ class DomainCheckView(APIView):
 
         domain = request.query_params.get('domain')
 
-        ipv4 = "http://testipv6.cn//ip/?callback="
+        ipv4 = "http://testipv6.cn/ip/?callback="
         ipv6 = "http://ipv6.testipv6.cn/ip/?callback="
         cdn_url = "https://cdn.poizon.com/node-common/2aa395c3c2257c5010d0c17569f794af.png"
         status = HTTP_200_OK

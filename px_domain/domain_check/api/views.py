@@ -31,10 +31,9 @@ class DomainCheckView(APIView):
         cur_date = datetime.datetime.now(SHA_TZ).strftime('%Y-%m-%d %H:%M:%S')
 
         ipv4, ipv6, dns_value, pinginfo, cdn_str = "", "", "", "", ""
-        try:
-            ipv4 = get_ip46_address(ipv4_url)
-            ipv6 = get_ip46_address(ipv6_url)
+        data = {"status":  HTTP_200_OK}
 
+        try:
             dns_resolver = dns.resolver.Resolver()
             dns_value = dns_resolver.nameservers[0]
             # 获取cdn
@@ -55,13 +54,12 @@ class DomainCheckView(APIView):
                 times.append(res)
                 
             pinginfo = round((sum(times) / count) * 1000) if times else "域名PING超时"
-            
-            data = {"status":  HTTP_200_OK}
+
+            ipv4 = get_ip46_address(ipv4_url)
+            ipv6 = get_ip46_address(ipv6_url)
 
         except Exception as e:
-            status = HTTP_400_BAD_REQUEST
             data = {
-                "status": HTTP_400_BAD_REQUEST,
                 "msg": "获取IP地址失败",
             }
 
